@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -10,23 +10,48 @@ import "./eRegister.css";
 import { useForm } from "react-hook-form";
 import Link from "@mui/material/Link";
 import axios from "../../../../Axios";
+import { useLocation, useNavigate } from "react-router-dom";
+
 
 
 function eRegister() {
+
+ const location = useLocation()
+
+ const searchParams = new URLSearchParams(location.search);
+
+ const token = searchParams.get('token');
+
+ const workSpaceName = searchParams.get('workSpaceName');
+
+  const [error,setError] = useState('')
+
+  const navigate = useNavigate();
+
+
+
   //form submit  funtion
   const onSubmit = (data, event) => {
     event.preventDefault();
 
-    
+     const employee = {
+      userName: data.name.toLowerCase(),
+      password: data.password,
+      token:token,
+      workSpaceName:workSpaceName,
+    };
 
-    const employee = {
-      name: data.name,
-      password:data.password
-    }
- axios.post('/auth/create-employee/',employee).then((res)=>{
- console.log(res.data,"its Responceeeeee")
- })
+    axios.post("/user/create-employee/", employee).then((res) => {
 
+      console.log(res.data.user)
+      if(res.data.user.status === 200){
+        navigate('/eHome')
+
+      }else{
+        console.log("okokoko")
+         setError(res.data.user.message);
+      }
+    });
   };
 
   const {
@@ -36,6 +61,12 @@ function eRegister() {
   } = useForm();
 
   const defaultTheme = createTheme();
+
+
+
+
+
+
 
   return (
     <div>
@@ -73,7 +104,7 @@ function eRegister() {
                   <TextField
                     margin="Name"
                     id="name"
-                    label="User name"
+                    label="Set employee name "
                     name="name"
                     autoComplete="name"
                     autoFocus
@@ -89,7 +120,7 @@ function eRegister() {
                   <TextField
                     margin="normal"
                     id="password"
-                    label="Password"
+                    label="Set password "
                     name="password"
                     autoComplete="password"
                     autoFocus
@@ -99,11 +130,10 @@ function eRegister() {
                   />
                   {errors.password && (
                     <span className="error-message">
-                      Password should have a minimum length of
-                      6 characters !
+                      Password should have a minimum length of 6 characters !
                     </span>
                   )}
-
+                    <span className="error-message"> {error} </span>
                   <Button
                     type="submit"
                     fullWidth

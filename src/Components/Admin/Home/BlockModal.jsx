@@ -41,7 +41,6 @@ export function BlockModal({ userId,isBlocked,getData}) {
 
     axios.post("/admin/block-user", user).then((res) => {
 
-      console.log(res.data,"dataaaa");
       getData();
       handleClose();
     });

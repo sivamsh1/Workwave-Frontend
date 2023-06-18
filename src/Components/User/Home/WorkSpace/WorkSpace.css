@@ -1,0 +1,9 @@
+.nav{
+
+    display: flex;
+    justify-content:space-between
+
+}
+#select-label{
+width:2rem;
+}

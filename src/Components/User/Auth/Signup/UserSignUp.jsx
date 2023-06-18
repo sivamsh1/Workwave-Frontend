@@ -56,7 +56,7 @@ function UserSignUp() {
           {/* header left LeftSide */}
 
           <div>
-            <div className="logo"></div>
+            <a href="/landingPage" className="logo" ></a>
           </div>
 
           {/* rightSide */}

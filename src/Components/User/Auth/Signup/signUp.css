@@ -1,7 +1,7 @@
 
 
 body {
-    background-image: url("../../../../assets/logoTrans.png");
+    /* background-image: url("../../../../assets/logoTrans.png"); */
     background-size: cover;
     background-repeat: no-repeat;
     width: 100vw;
@@ -78,7 +78,7 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     position :absolute;
-    top: -3rem;
+    top: 0rem;
     left:2rem;
     height: 7.5rem;
     width: 7.5rem;
